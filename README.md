@@ -1,38 +1,47 @@
 # 📝 ToDo WebApp — HTW Berlin WebTechnologien
 
-##  Aktueller Stand (Milestone 1)
+## 🚀 Aktueller Stand
 
-Projektidee: To-Do-Liste
+### 🎯 Milestone 1 – Spring Boot Backend
 
-Tech-Stack: Java 25 · Spring Boot 3.5 · Gradle 9 · REST API
+**Projektidee:** To-Do-Liste  
+**Tech-Stack:** Java 25 · Spring Boot 3.5 · Gradle 9 · REST API
 
-## **Endpoints:**
+#### **Endpoints**
+- `GET /api/health` → prüft, ob der Server läuft (`{ "status": "UP" }`)
+- `GET /api/todos` → liefert Beispiel-To-Dos als JSON
 
-GET /api/health → prüft, ob der Server läuft ({ "status": "UP" })
+#### **Tests**
+Erste JUnit-Tests mit MockMvc.
 
-GET /api/todos → liefert Beispiel-To-Dos als JSON
+#### **Deployment**
+Folgt in einem späteren Milestone (Render).
 
-## **Tests:** Erste JUnit-Tests mit MockMvc
+**Backend erreichbar unter:**
+- http://localhost:8080/api/health
+- http://localhost:8080/api/todos
 
-Deployment: folgt in späterem Milestone (Render)
+---
 
-Repository: https://github.com/TugayAvsar/todo
+### 🧩 Milestone 2 – Vue.js Frontend
 
-## Lokale Ausführung
+Für den zweiten Meilenstein wurde ein **Vue.js-Frontend mit Vite** erstellt.  
+Das Frontend rendert eine **To-Do-Liste** über eine eigene Unterkomponente  
+(`TodoList.vue`), die ihre Einträge mithilfe von `v-for` anzeigt.
 
-./gradlew bootRun
+#### **Technologien**
+- Node.js 24 · Vue 3 · Vite 7
+- Single-Page-App mit Komponentenstruktur
+- Verbindung zu späterem Spring-Backend geplant
 
-
-Das Backend ist unter 
-http://localhost:8080/api/health
-
-und
-http://localhost:8080/api/todos
-
-erreichbar.
-
-## **Autor**
-
-Tugay Avsar
-
-GitHub → https://github.com/TugayAvsar/todo
+#### **Struktur**
+frontend/
+├── src/
+│ ├── components/
+│ │ ├── HelloWorld.vue
+│ │ └── TodoList.vue
+│ ├── App.vue
+│ ├── main.js
+│ └── assets/
+├── package.json
+└── vite.config.js
