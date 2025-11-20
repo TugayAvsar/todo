@@ -17,6 +17,10 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+# dotenv environment variable files
+.env
+.env.*
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

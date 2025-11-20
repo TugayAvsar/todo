@@ -1,5 +1,6 @@
 package de.htwberlin.webtech.todo.api;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/todos")
 public class TodoController {
@@ -17,9 +19,9 @@ public class TodoController {
     @GetMapping
     public List<Todo> list() {
         return List.of(
-                new Todo(1L, "Milestone 1 abschließen", false, Instant.now()),
+                new Todo(1L, "Milestone 1 abschließen", true, Instant.now()),
                 new Todo(2L, "GET-Route testen", true, Instant.now()),
-                new Todo(3L, "README aktualisieren", false, Instant.now())
+                new Todo(3L, "README aktualisieren", true, Instant.now())
         );
     }
 }
