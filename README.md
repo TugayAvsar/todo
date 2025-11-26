@@ -28,6 +28,14 @@ Ziel ist eine Web-App mit **Spring Boot (Backend)**, **Vue.js (Frontend)** und *
     - HTTP 200
     - JSON-Feld `status = "UP"`
 
+### Deployment
+
+Backend (Render):  
+https://todo-backend-jilk.onrender.com/api/todos
+
+Frontend (Render):  
+https://todo-frontend-zypm.onrender.com
+
 ### Lokale Ausführung (Backend)
 
 ```bash
