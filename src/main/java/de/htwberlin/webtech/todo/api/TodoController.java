@@ -1,22 +1,41 @@
 package de.htwberlin.webtech.todo.api;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.htwberlin.webtech.todo.service.TodoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
 
 @RestController
-@CrossOrigin  // erlaubt alle Origins (auch dein Render-Frontend)
+@RequestMapping("/api/todos")
+@CrossOrigin(origins = "*") // für Vue-Frontend (Render)
 public class TodoController {
 
-    @GetMapping("/api/todos")
+    private final TodoService service;
+
+    public TodoController(TodoService service) {
+        this.service = service;
+    }
+
+    @GetMapping
     public List<TodoDto> getTodos() {
-        return List.of(
-                new TodoDto(1L, "Milestone 1 abschließen", true, Instant.now()),
-                new TodoDto(2L, "GET-Route testen", true, Instant.now()),
-                new TodoDto(3L, "README aktualisieren", true, Instant.now())
-        );
+        return service.findAll();
+    }
+
+    public record CreateTodoRequest(String title) {}
+
+    @PostMapping
+    public ResponseEntity<TodoDto> createTodo(@RequestBody CreateTodoRequest request) {
+        if (request.title() == null || request.title().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        TodoDto created = service.create(request.title());
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PatchMapping("/{id}/toggle")
+    public TodoDto toggleTodo(@PathVariable Long id) {
+        return service.toggleCompleted(id);
     }
 }
