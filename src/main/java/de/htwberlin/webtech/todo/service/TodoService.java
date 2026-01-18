@@ -44,6 +44,15 @@ public class TodoService {
         return toDto(saved);
     }
 
+    /** @return true wenn gelöscht, false wenn nicht gefunden */
+    public boolean deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
+    }
+
     private TodoDto toDto(TodoEntity entity) {
         return new TodoDto(
                 entity.getId(),

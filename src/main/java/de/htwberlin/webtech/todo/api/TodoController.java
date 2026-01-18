@@ -38,4 +38,13 @@ public class TodoController {
     public TodoDto toggleTodo(@PathVariable Long id) {
         return service.toggleCompleted(id);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+        boolean deleted = service.deleteById(id);
+        return deleted ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
+    }
+
+
 }

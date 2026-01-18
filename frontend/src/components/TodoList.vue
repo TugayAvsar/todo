@@ -6,7 +6,7 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['toggle'])
+const emit = defineEmits(['toggle', 'delete'])
 </script>
 
 <template>
@@ -14,7 +14,11 @@ const emit = defineEmits(['toggle'])
     <h2>Meine Todos</h2>
 
     <ul v-if="todos.length">
-      <li v-for="todo in todos" :key="todo.id" style="display:flex; gap:.5rem; align-items:center;">
+      <li
+          v-for="todo in todos"
+          :key="todo.id"
+          style="display:flex; gap:.5rem; align-items:center;"
+      >
         <input
             type="checkbox"
             :checked="todo.completed"
@@ -28,6 +32,14 @@ const emit = defineEmits(['toggle'])
         <small style="margin-left:auto;">
           erstellt am {{ new Date(todo.createdAt).toLocaleString() }}
         </small>
+
+        <button
+            @click="emit('delete', todo.id)"
+            style="margin-left:.5rem; padding:6px 10px; border-radius:6px; border:none; cursor:pointer;"
+            title="Todo löschen"
+        >
+          Löschen
+        </button>
       </li>
     </ul>
 

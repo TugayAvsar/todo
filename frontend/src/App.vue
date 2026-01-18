@@ -76,6 +76,29 @@ async function toggleTodo(id) {
   }
 }
 
+async function deleteTodo(id) {
+  error.value = null
+
+  try {
+    const response = await fetch(apiBase + `/api/todos/${id}`, {
+      method: 'DELETE'
+    })
+
+    if (response.status === 404) {
+      throw new Error('Todo wurde nicht gefunden (404).')
+    }
+
+    if (!response.ok) {
+      throw new Error(`DELETE fehlgeschlagen: HTTP ${response.status}`)
+    }
+
+    await loadTodos()
+  } catch (err) {
+    console.error('FEHLER IM FRONTEND (DELETE):', err)
+    error.value = err.message
+  }
+}
+
 onMounted(loadTodos)
 </script>
 
@@ -113,7 +136,12 @@ onMounted(loadTodos)
       </button>
     </div>
 
-    <TodoList v-else :todos="todos" @toggle="toggleTodo" />
+    <TodoList
+        v-else
+        :todos="todos"
+        @toggle="toggleTodo"
+        @delete="deleteTodo"
+    />
   </main>
 </template>
 
@@ -124,10 +152,6 @@ main {
   padding: 1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-h1 {
-  margin-bottom: 0.5rem;
-}
-p {
-  margin-bottom: 1rem;
-}
+h1 { margin-bottom: 0.5rem; }
+p { margin-bottom: 1rem; }
 </style>
